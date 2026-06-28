@@ -63,11 +63,14 @@ class CourseSearchTool(Tool):
         """
         
         # Use the vector store's unified search interface
-        results = self.store.search(
-            query=query,
-            course_name=course_name,
-            lesson_number=lesson_number
-        )
+        try:
+            results = self.store.search(
+                query=query,
+                course_name=course_name,
+                lesson_number=lesson_number
+            )
+        except Exception as e:
+            return f"Search failed due to an internal error: {e}"
         
         # Handle errors
         if results.error:

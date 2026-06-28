@@ -80,13 +80,18 @@ Provide only the direct answer to what was asked.
             api_params["tool_choice"] = {"type": "auto"}
         
         # Get response from Claude
-        response = self.client.messages.create(**api_params)
-        
+        try:
+            response = self.client.messages.create(**api_params)
+        except Exception as e:
+            return f"I'm sorry, I couldn't reach the AI service. Please try again. ({e})"
+
         # Handle tool execution if needed
         if response.stop_reason == "tool_use" and tool_manager:
             return self._handle_tool_execution(response, api_params, tool_manager)
-        
+
         # Return direct response
+        if not response.content:
+            return "I received an empty response. Please try again."
         return response.content[0].text
     
     def _handle_tool_execution(self, initial_response, base_params: Dict[str, Any], tool_manager):
@@ -134,5 +139,11 @@ Provide only the direct answer to what was asked.
         }
         
         # Get final response
-        final_response = self.client.messages.create(**final_params)
+        try:
+            final_response = self.client.messages.create(**final_params)
+        except Exception as e:
+            return f"I'm sorry, I couldn't process the search results. Please try again. ({e})"
+
+        if not final_response.content:
+            return "I received an empty response after searching. Please try again."
         return final_response.content[0].text
