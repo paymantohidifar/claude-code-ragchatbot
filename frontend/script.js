@@ -16,10 +16,28 @@ document.addEventListener('DOMContentLoaded', () => {
   totalCourses = document.getElementById('totalCourses');
   courseTitles = document.getElementById('courseTitles');
 
+  initTheme();
   setupEventListeners();
   createNewSession();
   loadCourseStats();
 });
+
+// Theme Toggle
+function initTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+        document.documentElement.classList.add('light-theme');
+    }
+}
+
+function toggleTheme() {
+    const isLight = document.documentElement.classList.toggle('light-theme');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    document.getElementById('themeToggle').setAttribute(
+        'aria-label',
+        isLight ? 'Switch to dark theme' : 'Switch to light theme'
+    );
+}
 
 // Event Listeners
 function setupEventListeners() {
@@ -31,6 +49,7 @@ function setupEventListeners() {
     }
   });
   document.getElementById('newChatBtn').addEventListener('click', createNewSession);
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 
   // Suggested questions
   document.querySelectorAll('.suggested-item').forEach((button) => {
