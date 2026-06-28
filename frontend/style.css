@@ -453,19 +453,17 @@ header h1 {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     background: none;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
+    border: none;
+    padding: 0.5rem 0;
     cursor: pointer;
     width: 100%;
     text-align: left;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: color 0.2s ease;
 }
 
 .new-chat-btn:hover,
 .new-chat-btn:focus {
     color: var(--primary-color);
-    border-color: var(--primary-color);
     outline: none;
 }
 
