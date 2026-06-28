@@ -28,6 +28,7 @@ function setupEventListeners() {
     chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendMessage();
     });
+    document.getElementById('newChatBtn').addEventListener('click', createNewSession);
     
     
     // Suggested questions
