@@ -38,3 +38,10 @@ docs/token_hacks.md
 # Claude
 .claudeignore
 CLAUDE.local.md
+
+# Node
+frontend/node_modules/
+frontend/package-lock.json
+
+# Git helpers
+.git_context.log
